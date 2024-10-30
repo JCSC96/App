@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  banco:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: banco
+      MYSQL_ROOT_PASSWORD: 123456789
+    ports:
+      - "3306:3306"
+  
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - banco
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://banco:3306/banco
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456789
